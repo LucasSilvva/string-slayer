@@ -1,0 +1,15 @@
+[gd_scene load_steps=2 format=3 uid="uid://djtpexunqp55e"]
+
+[ext_resource type="PackedScene" uid="uid://tenqnmuqxjc7" path="res://road.tscn" id="1_80nbo"]
+
+[node name="game" type="Node3D"]
+
+[node name="road" parent="." instance=ExtResource("1_80nbo")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -4.60564)
+
+[node name="gamecam" type="Camera3D" parent="."]
+transform = Transform3D(-0.999591, -0.00337893, -0.0283965, -0.0106538, 0.965512, 0.260139, 0.0265382, 0.260335, -0.965154, -0.810082, 3.93816, -11.5873)
+current = true
+
+[node name="camdebug" type="Camera3D" parent="."]
+transform = Transform3D(-0.0090663815, 0.99198365, -0.1260407, 0.022436503, 0.12621595, 0.99174905, 0.99970716, 0.0061636628, -0.023400966, -1.29514, 18.25, -5.83785)

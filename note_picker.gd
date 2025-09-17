@@ -1,0 +1,60 @@
+extends Node3D
+
+@export_range(1,4) var line: int
+
+var my_material: StandardMaterial3D
+var my_mesh: MeshInstance3D
+var is_collecting = false
+
+
+func _find_mesh_instance(node):
+	if node is MeshInstance3D:
+		return node
+	for child in node.get_children():
+		var found_mesh = _find_mesh_instance(child)
+		if found_mesh:
+			return found_mesh
+	return null
+var my_area_3d: Area3D
+var note_to_collect: Node3D = null
+func _ready():
+	my_mesh = _find_mesh_instance(self)   
+	if not my_mesh:
+		print("Error")
+		return
+		
+	my_area_3d = find_child("Area3D", true)
+	if not my_area_3d:
+		print("Erro: Area3D não encontrado!")
+
+func _input(event):
+	var action_name = "line_" + str(line)
+	if event.is_action_pressed(action_name):
+		self.scale = Vector3(0.9, 0.9, 0.9)
+		if is_colliding_with_note and is_instance_valid(note_in_picker):
+			get_parent().add_score(100)
+			
+			note_in_picker.call_deferred("queue_free")
+			is_colliding_with_note = false
+			note_in_picker = null
+		else:
+			get_parent().reset_combo()
+	if event.is_action_released(action_name):
+		self.scale = Vector3(1, 1, 1)
+
+
+
+func _on_3d_area_exited(area: Area3D) -> void:
+	if area.is_in_group("note"):
+		if is_colliding_with_note and is_instance_valid(note_in_picker) and note_in_picker == area.get_parent().get_parent():
+			get_parent().reset_combo()
+			is_colliding_with_note = false
+			note_in_picker = null
+
+var is_colliding_with_note: bool = false
+var note_in_picker: Node3D
+
+func _on_3d_area_entered(area: Area3D) -> void:
+	if area.is_in_group("note"):
+		is_colliding_with_note = true
+		note_to_collect = area.get_parent().get_parent()

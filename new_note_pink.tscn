@@ -1,0 +1,24 @@
+[gd_scene load_steps=4 format=3 uid="uid://b43b8dn543bik"]
+
+[ext_resource type="PackedScene" uid="uid://cdcssild08ldc" path="res://BOTÃOpink.glb" id="1_wtnmn"]
+[ext_resource type="Script" uid="uid://dn8yr3um0txwm" path="res://note_green.gd" id="2_3hx74"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_3hx74"]
+radius = 0.3
+
+[node name="new_note_pink" type="Node3D"]
+script = ExtResource("2_3hx74")
+line = 2
+
+[node name="BOTÃOpink" parent="." instance=ExtResource("1_wtnmn")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="." groups=["note"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.028185178, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.542274, -0.811247)
+shape = SubResource("SphereShape3D_3hx74")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_3d_area_exited"]

@@ -1,0 +1,23 @@
+[gd_scene load_steps=4 format=3 uid="uid://ue5bph6y62ec"]
+
+[ext_resource type="PackedScene" uid="uid://d2sat0u6fx8ng" path="res://BOTÃOgreen.glb" id="1_mldu6"]
+[ext_resource type="Script" uid="uid://dn8yr3um0txwm" path="res://note_green.gd" id="2_w04ut"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_w04ut"]
+radius = 0.3
+
+[node name="new_note_green" type="Node3D"]
+script = ExtResource("2_w04ut")
+
+[node name="BOTÃOgreen" parent="." instance=ExtResource("1_mldu6")]
+transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="." groups=["note"]]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.359848, 0)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.000275865, 0.193043, -0.835315)
+shape = SubResource("SphereShape3D_w04ut")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_3d_area_exited"]

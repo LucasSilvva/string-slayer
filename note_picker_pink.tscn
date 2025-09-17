@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://5bke55bmdq1j"]
+
+[ext_resource type="PackedScene" uid="uid://2crmiaadlcj8" path="res://receptorPINK.glb" id="1_bgfqd"]
+[ext_resource type="Script" uid="uid://dgyp47awkk2e7" path="res://note_picker.gd" id="1_vjsfv"]
+
+[sub_resource type="SphereShape3D" id="SphereShape3D_vjsfv"]
+radius = 0.2
+
+[node name="note_picker_pink" type="Node3D"]
+script = ExtResource("1_vjsfv")
+
+[node name="receptorPINK" parent="." instance=ExtResource("1_bgfqd")]
+transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
+
+[node name="Area3D" type="Area3D" parent="." groups=["picker"]]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.407621, 0.260477, -0.340089)
+shape = SubResource("SphereShape3D_vjsfv")
+
+[connection signal="area_entered" from="Area3D" to="." method="_on_3d_area_entered"]
+[connection signal="area_exited" from="Area3D" to="." method="_on_3d_area_exited"]

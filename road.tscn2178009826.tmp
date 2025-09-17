@@ -1,0 +1,37 @@
+[gd_scene load_steps=8 format=3 uid="uid://tenqnmuqxjc7"]
+
+[ext_resource type="PackedScene" uid="uid://3kl1f1dbjhli" path="res://pista.gltf.gltf" id="1_x0d2t"]
+[ext_resource type="Script" uid="uid://dgyp47awkk2e7" path="res://note_picker.gd" id="3_bpeel"]
+[ext_resource type="PackedScene" uid="uid://5bke55bmdq1j" path="res://note_picker_pink.tscn" id="6_esrkl"]
+[ext_resource type="PackedScene" uid="uid://cvno5gvie1si5" path="res://note_picker_red.tscn" id="7_dlofk"]
+[ext_resource type="PackedScene" uid="uid://c821rqbh3yofp" path="res://note_picker_green.tscn" id="7_i5hip"]
+[ext_resource type="PackedScene" uid="uid://cadp3mxen6mqw" path="res://bar.tscn" id="7_pidm3"]
+[ext_resource type="PackedScene" uid="uid://bsgylhujlphnh" path="res://note_picker_purple.tscn" id="7_u56os"]
+
+[node name="road" type="Node3D"]
+transform = Transform3D(-0.00867419, 0, 0.999963, 0, 1, 0, -0.999963, 0, -0.00867419, 0.435036, -0.136058, -0.226136)
+
+[node name="pista_gltf" parent="." instance=ExtResource("1_x0d2t")]
+transform = Transform3D(0.7, 0, 0, 0, 0.5, 0, 0, 0, 0.5, -1.61172, 0, 9.83381)
+
+[node name="note_picker_green" parent="." instance=ExtResource("7_i5hip")]
+transform = Transform3D(-0.00867418, 0, -0.999962, 0, 1, 0, 0.999962, 0, -0.00867418, 3.772, 0.351, 0.677)
+script = ExtResource("3_bpeel")
+
+[node name="note_picker_red" parent="." instance=ExtResource("7_dlofk")]
+transform = Transform3D(-0.00867418, 0, -0.999962, 0, 1, 0, 0.999962, 0, -0.00867418, 0.907, 0.351262, 0.827)
+script = ExtResource("3_bpeel")
+line = 2
+
+[node name="note_picker_pink" parent="." instance=ExtResource("6_esrkl")]
+transform = Transform3D(-0.00867418, 0, -0.999962, 0, 1, 0, 0.999962, 0, -0.00867418, -1.46943, 0.351, 0.994463)
+script = ExtResource("3_bpeel")
+line = 3
+
+[node name="note_picker_purple" parent="." instance=ExtResource("7_u56os")]
+transform = Transform3D(-0.00867418, 0, -0.999962, 0, 1, 0, 0.999962, 0, -0.00867418, -4.01728, 0.336645, 0.59848)
+script = ExtResource("3_bpeel")
+line = 4
+
+[node name="bar" parent="." instance=ExtResource("7_pidm3")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.831621, 0.411042, 1.35711)
