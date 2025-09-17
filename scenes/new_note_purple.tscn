@@ -1,16 +1,16 @@
 [gd_scene load_steps=4 format=3 uid="uid://6pyxxg3x8tud"]
 
-[ext_resource type="PackedScene" uid="uid://dnfjb4qy2755f" path="res://BOTÃOpurple.glb" id="1_6sbhi"]
-[ext_resource type="Script" uid="uid://dn8yr3um0txwm" path="res://note_green.gd" id="1_7ngsc"]
+[ext_resource type="Script" uid="uid://dn8yr3um0txwm" path="res://scripts/note_green.gd" id="1_pk6ss"]
+[ext_resource type="PackedScene" uid="uid://dnfjb4qy2755f" path="res://assets/BOTÃOpurple.glb" id="2_a3t1r"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_7ngsc"]
 radius = 0.3
 
 [node name="new_note_purple" type="Node3D"]
-script = ExtResource("1_7ngsc")
+script = ExtResource("1_pk6ss")
 line = 4
 
-[node name="BOTÃOpurple" parent="." instance=ExtResource("1_6sbhi")]
+[node name="BOTÃOpurple" parent="." instance=ExtResource("2_a3t1r")]
 transform = Transform3D(0.3, 0, 0, 0, 0.3, 0, 0, 0, 0.3, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="." groups=["note"]]

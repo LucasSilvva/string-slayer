@@ -1,15 +1,15 @@
 [gd_scene load_steps=4 format=3 uid="uid://bsgylhujlphnh"]
 
-[ext_resource type="PackedScene" uid="uid://b6jjqnex2rcj5" path="res://receptorPURPLE.glb" id="1_bu3l7"]
-[ext_resource type="Script" uid="uid://dgyp47awkk2e7" path="res://note_picker.gd" id="1_sq432"]
+[ext_resource type="Script" uid="uid://dgyp47awkk2e7" path="res://scripts/note_picker.gd" id="1_4vhs4"]
+[ext_resource type="PackedScene" uid="uid://b6jjqnex2rcj5" path="res://assets/receptorPURPLE.glb" id="2_0kj4a"]
 
 [sub_resource type="SphereShape3D" id="SphereShape3D_sq432"]
 radius = 0.2
 
 [node name="note_picker_purple" type="Node3D"]
-script = ExtResource("1_sq432")
+script = ExtResource("1_4vhs4")
 
-[node name="receptorPURPLE" parent="." instance=ExtResource("1_bu3l7")]
+[node name="receptorPURPLE" parent="." instance=ExtResource("2_0kj4a")]
 transform = Transform3D(0.4, 0, 0, 0, 0.4, 0, 0, 0, 0.4, 0, 0, 0)
 
 [node name="Area3D" type="Area3D" parent="." groups=["picker"]]
