@@ -107,8 +107,11 @@ func _process(delta):
 		var note = active_notes[i]
 		if is_instance_valid(note):
 			note.position.z += note_speed * delta
-			if note.position.z < end_z_pos:
+			if note.position.z < end_z_pos and note.is_collected:
 				reset_combo()
+				note.queue_free()
+				active_notes.remove_at(i)
+			elif note.position.z < end_z_pos and note.is_collected:
 				note.queue_free()
 				active_notes.remove_at(i)
 
@@ -119,6 +122,12 @@ func add_bar():
 	bars_node.add_child(bar)
 	curr_location +=Vector3(0,0,-bar_length_in_m)
 
+func collect_note(note: Node3D):
+	if active_notes.has(note):
+		note.is_collected = true
+		active_notes.erase(note)
+		note.queue_free()
+			
 var score: int = 0
 var combo: int = 0
 

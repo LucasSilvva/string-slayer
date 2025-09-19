@@ -5,6 +5,7 @@ extends Node3D
 var my_material: StandardMaterial3D
 var my_mesh: MeshInstance3D
 var is_collecting = false
+var parent_road: Node
 
 
 func _find_mesh_instance(node):
@@ -26,17 +27,17 @@ func _ready():
 	my_area_3d = find_child("Area3D", true)
 	if not my_area_3d:
 		print("Erro: Area3D não encontrado!")
+	parent_road = get_parent()
 
 func _input(event):
 	var action_name = "line_" + str(line)
 	if event.is_action_pressed(action_name):
 		self.scale = Vector3(0.9, 0.9, 0.9)
-		if is_colliding_with_note and is_instance_valid(note_in_picker):
+		if is_instance_valid(note_to_collect):
+			if parent_road != null:
+				parent_road.collect_note(note_to_collect)
 			get_parent().add_score(100)
-			
-			note_in_picker.call_deferred("queue_free")
-			is_colliding_with_note = false
-			note_in_picker = null
+			note_to_collect= null
 		else:
 			get_parent().reset_combo()
 	if event.is_action_released(action_name):
@@ -46,15 +47,13 @@ func _input(event):
 
 func _on_3d_area_exited(area: Area3D) -> void:
 	if area.is_in_group("note"):
-		if is_colliding_with_note and is_instance_valid(note_in_picker) and note_in_picker == area.get_parent().get_parent():
+		if is_instance_valid(note_to_collect) and area.get_parent().get_parent() == note_to_collect:
 			get_parent().reset_combo()
-			is_colliding_with_note = false
-			note_in_picker = null
+			note_to_collect= null
 
 var is_colliding_with_note: bool = false
 var note_in_picker: Node3D
 
 func _on_3d_area_entered(area: Area3D) -> void:
 	if area.is_in_group("note"):
-		is_colliding_with_note = true
 		note_to_collect = area.get_parent().get_parent()
