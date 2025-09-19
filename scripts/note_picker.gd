@@ -36,7 +36,7 @@ func _input(event):
 		if is_instance_valid(note_to_collect):
 			if parent_road != null:
 				parent_road.collect_note(note_to_collect)
-			get_parent().add_score(100)
+				get_parent().add_score(100)
 			note_to_collect= null
 		else:
 			get_parent().reset_combo()
@@ -47,7 +47,7 @@ func _input(event):
 
 func _on_3d_area_exited(area: Area3D) -> void:
 	if area.is_in_group("note"):
-		if is_instance_valid(note_to_collect) and area.get_parent().get_parent() == note_to_collect:
+		if is_instance_valid(note_to_collect) and area.get_parent() == note_to_collect:
 			get_parent().reset_combo()
 			note_to_collect= null
 
@@ -56,4 +56,4 @@ var note_in_picker: Node3D
 
 func _on_3d_area_entered(area: Area3D) -> void:
 	if area.is_in_group("note"):
-		note_to_collect = area.get_parent().get_parent()
+		note_to_collect = area.get_parent()
