@@ -32,13 +32,16 @@ func _ready():
 func _input(event):
 	var action_name = "line_" + str(line)
 	if event.is_action_pressed(action_name):
+		print("Ação Pressionada:", action_name)
 		self.scale = Vector3(0.9, 0.9, 0.9)
 		if is_instance_valid(note_to_collect):
+			print("NOTA PRONTA PARA COLETAR!")
 			if parent_road != null:
 				parent_road.collect_note(note_to_collect)
 				get_parent().add_score(100)
 			note_to_collect= null
 		else:
+			print("NOTA NÃO ENCONTRADA. COMBO RESETADO.")
 			get_parent().reset_combo()
 	if event.is_action_released(action_name):
 		self.scale = Vector3(1, 1, 1)

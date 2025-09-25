@@ -13,6 +13,7 @@ var curr_location: Vector3 = Vector3(0,0,0)
 @export var new_note_purple_tscn: PackedScene
 
 @export var note_scale: float = 1.0
+@export var power_manager: PowerManager
 var next_note_to_spawn: int = 0
 var time_passed: float = 0.0
 var notes_data = [
@@ -74,7 +75,11 @@ var end_z_pos: float = -10.0
 var note_speed: float = -2.0
 var active_notes: Array[Node3D] = []
 
+
+
 func _ready():
+
+	power_manager = get_node("/root/game/PowerManager")
 	print("Nota criada na posição Z:", self.global_position.z)
 	randomize()
 
@@ -107,13 +112,13 @@ func _process(delta):
 		var note = active_notes[i]
 		if is_instance_valid(note):
 			note.position.z += note_speed * delta
-			if note.position.z < end_z_pos and note.is_collected:
-				reset_combo()
+			if note.position.z < end_z_pos and !note.is_collected:
+				power_manager.on_note_missed()
+				if power_manager.active_power != PowerManager.PowerType.COMBO_SHIELD or !power_manager.power_active:
+					reset_combo()
 				note.queue_free()
 				active_notes.remove_at(i)
-			elif note.position.z < end_z_pos and note.is_collected:
-				note.queue_free()
-				active_notes.remove_at(i)
+
 
 func add_bar():
 	var bar = bar_game_tscn.instantiate()
@@ -127,15 +132,21 @@ func collect_note(note: Node3D):
 		note.is_collected = true
 		active_notes.erase(note)
 		note.queue_free()
+		power_manager.on_note_hit()
+		var points = power_manager.calculate_score(100, combo, true)  # 100 é base_points
+		add_score(points)
 			
 var score: int = 0
 var combo: int = 0
 
 func add_score(points: int):
 		combo += 1
-		var score_to_add = points * combo
+		@warning_ignore("integer_division")
+		var combo_multiplier = min(int(combo / 10) + 1, 4)
+		var score_to_add = points * combo_multiplier
 		score += score_to_add
-		print("Pontuação:", score, " | Combo:", combo)
+		print("Pontuação:", score, " | Combo:", combo, " | Multiplicador:", combo_multiplier)
+
 
 func reset_combo():
 	combo = 0

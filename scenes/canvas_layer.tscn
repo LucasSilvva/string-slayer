@@ -1,0 +1,25 @@
+[gd_scene load_steps=2 format=3 uid="uid://fdihh4boadxi"]
+
+[ext_resource type="Script" uid="uid://b028g67ijnp21" path="res://scripts/PowerUi.gd" id="1_c4rma"]
+
+[node name="CanvasLayer" type="CanvasLayer"]
+script = ExtResource("1_c4rma")
+power_manager_node = NodePath("/root/game/PowerManager")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+offset_right = 200.0
+offset_bottom = 40.0
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="OVERDRIVE" type="ColorRect" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="COMBO_SHIELD" type="ColorRect" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="FRENZY" type="ColorRect" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="CHAIN_MASTER" type="ColorRect" parent="HBoxContainer"]
+layout_mode = 2
